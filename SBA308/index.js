@@ -81,13 +81,7 @@ function getTotalAverage(learnerId) {
   let totalMaxScore = 0;
   let assignmentIdsOfLearner = [];
   LearnerSubmissions.forEach((submission) => {
-    console.log(
-      submission.learner_id === learnerId,
-      submission.learner_id,
-      learnerId
-    );
     if (submission.learner_id === learnerId) {
-      console.log("asdasd");
       assignmentIdsOfLearner.push(submission.assignment_id);
       totalScore += submission.submission.score;
     }
@@ -98,83 +92,63 @@ function getTotalAverage(learnerId) {
       totalMaxScore += assignment.points_possible;
     }
   });
-
-  console.log(totalScore / totalMaxScore);
-  console.log(totalScore, totalMaxScore, assignmentIdsOfLearner);
-  return totalScore / totalMaxScore;
+  const average = totalScore / totalMaxScore;
+  return roundToHundredths(average);
 }
 
-getTotalAverage(132);
+function roundToHundredths(num) {
+  return Math.round(num * 100) / 100;
+}
+
 function getResult(scoresArray) {
   let results = [];
   for (let item of scoresArray) {
-    // console.log(item, "item");
-    //   console.log(item.learner_id)
-    //   const existingItemIndex = results.indexOf(item.learner_id);
     const existingItemIndex = results.findIndex(
       (result) => result.learner_id === item.learner_id
     );
-    console.log(existingItemIndex);
-    //   console.log(existingItemIndex === -1)
     if (existingItemIndex !== -1) {
-      //   console.log("hello")
-      //   console.log(existingItemIndex);
-      //   console.log(results[existingItemIndex]);
-      console.log({ ...results[existingItemIndex], ...item });
+      //   console.log({ ...results[existingItemIndex], ...item });
       results[existingItemIndex] = { ...results[existingItemIndex], ...item };
-      //   results[existingItemIndex].item.assignment_id = item.score;
     } else {
       results.push(item);
-      //   results.push({ id: item.learner_id, keyy: item.score });
     }
-    // const newArray = newArray.map(item => {
-    //     if (item.)
-    // } )
-    //     for (let result of results) {
-
-    //       if (result.learner_id)
-    // } else {
-    //         results.push({ id: item.learner_id, item.assignment_id: item.score})
-    //     }
-
-    // console.log(results);
   }
+
+  console.log(results);
 }
 
+function isDue(sub_date, due_date) {
+  //   if (sub_date > due_date) {
+  //     console.log("is due");
+  //   } else {
+  //     return false
+  //     }
+
+  return sub_date > due_date;
+}
+
+// isDue(new Date("2023-01-25"), new Date("3156-11-15"));
+// console.log(new Date("2023-01-25") < new Date("3156-11-15"));
+
 function getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions) {
-  // console.log(CourseInfo, AssignmentGroup, "ASSIGNMENTS", LearnerSubmissions, "learnersubmissions")
-  // console.log(AssignmentGroup)
-  // const courseAssignment = AssignmentGroup.find(assignment => assignment.course_id === CourseInfo.id)
-  // console.log(courseAssignment)
   const scores = LearnerSubmissions.map((learner) => {
     const relatedAssignment = AssignmentGroup.assignments.find(
       (assignment) => assignment.id === learner.assignment_id
     );
-    // console.log(relatedAssignment, "relatedassign");
+    // console.log(isDue(learner.submission.submitted_at, relatedAssignment.due_at), learner.submission.submitted_at, relatedAssignment.due_at );
+    // if (!isDue(learner.submission.submitted_at, relatedAssignment.due_at)) {
     const assignment_id = learner.assignment_id;
-    //   console.log(assignment_id)
+    // console.log(isDue(learner.submission.submitted_at, relatedAssignment.due_at));
     let person = {};
     person["learner_id"] = learner.learner_id;
-    person[assignment_id] =
-      learner.submission.score / relatedAssignment.points_possible;
+    person["avg"] = getTotalAverage(learner.learner_id);
+    person[assignment_id] = roundToHundredths(
+      learner.submission.score / relatedAssignment.points_possible
+    );
     return person;
-    return {
-      learner_id: learner.learner_id,
-      //   assignment_id: learner.assignment_id,
-      assignment_id:
-        learner.submission.score / relatedAssignment.points_possible,
-    };
+    // }
   });
-  //   console.log(scores);
-  [
-    { learner_id: 125, assignment_id: 1, score: 0.94 },
-    { learner_id: 125, assignment_id: 2, score: 1 },
-    { learner_id: 125, assignment_id: 3, score: 0.8 },
-    { learner_id: 132, assignment_id: 1, score: 0.78 },
-    { learner_id: 132, assignment_id: 2, score: 0.9333333333333333 },
-  ];
 
-  // to this
   const result = [
     {
       id: 125,
@@ -190,7 +164,7 @@ function getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions) {
     },
   ];
 
-  //   console.log(getResult(scores));
+  getResult(scores);
 }
 
 getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);

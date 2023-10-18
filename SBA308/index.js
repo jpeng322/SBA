@@ -83,12 +83,19 @@ const LearnerSubmissions = [
 function getResult(scoresArray) {
   let results = [];
   for (let item of scoresArray) {
-    // console.log(item, "item");
-    const existingItemIndex = results.indexOf(item.learner_id);
+      // console.log(item, "item");
+    //   console.log(item.learner_id)
+    //   const existingItemIndex = results.indexOf(item.learner_id);
+      const existingItemIndex = results.findIndex(result => result.learner_id === item.learner_id)
+      console.log(existingItemIndex)
+    //   console.log(existingItemIndex === -1)
       if (existingItemIndex !== -1) {
-          console.log(existingItemIndex);
-          console.log(results[existingItemIndex]);
-          results[existingItemIndex].item.assignment_id = item.score;
+        //   console.log("hello")
+        //   console.log(existingItemIndex);
+          //   console.log(results[existingItemIndex]);
+          console.log({ ...results[existingItemIndex], ...item })
+          results[existingItemIndex] = { ...results[existingItemIndex], ...item }
+        //   results[existingItemIndex].item.assignment_id = item.score;
       } else {
         results.push(item)
     //   results.push({ id: item.learner_id, keyy: item.score });

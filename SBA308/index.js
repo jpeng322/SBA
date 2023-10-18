@@ -131,23 +131,29 @@ function isDue(sub_date, due_date) {
 // console.log(new Date("2023-01-25") < new Date("3156-11-15"));
 
 function getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions) {
-  const scores = LearnerSubmissions.map((learner) => {
-    const relatedAssignment = AssignmentGroup.assignments.find(
-      (assignment) => assignment.id === learner.assignment_id
-    );
-    // console.log(isDue(learner.submission.submitted_at, relatedAssignment.due_at), learner.submission.submitted_at, relatedAssignment.due_at );
-    // if (!isDue(learner.submission.submitted_at, relatedAssignment.due_at)) {
-    const assignment_id = learner.assignment_id;
-    // console.log(isDue(learner.submission.submitted_at, relatedAssignment.due_at));
-    let person = {};
-    person["learner_id"] = learner.learner_id;
-    person["avg"] = getTotalAverage(learner.learner_id);
-    person[assignment_id] = roundToHundredths(
-      learner.submission.score / relatedAssignment.points_possible
-    );
-    return person;
-    // }
-  });
+  if (CourseInfo.id === AssignmentGroup.course_id) {
+    const scores = LearnerSubmissions.map((learner) => {
+      const relatedAssignment = AssignmentGroup.assignments.find(
+        (assignment) => assignment.id === learner.assignment_id
+      );
+      // console.log(isDue(learner.submission.submitted_at, relatedAssignment.due_at), learner.submission.submitted_at, relatedAssignment.due_at );
+      // if (!isDue(learner.submission.submitted_at, relatedAssignment.due_at)) {
+      const assignment_id = learner.assignment_id;
+      // console.log(isDue(learner.submission.submitted_at, relatedAssignment.due_at));
+      let person = {};
+      person["learner_id"] = learner.learner_id;
+      person["avg"] = getTotalAverage(learner.learner_id);
+      person[assignment_id] = roundToHundredths(
+        learner.submission.score / relatedAssignment.points_possible
+      );
+      return person;
+      // }
+    });
+    getResult(scores);
+  } else {
+      throw new Error("Assignment group does not match course info!")
+  }
+
 
   const result = [
     {
@@ -164,7 +170,11 @@ function getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions) {
     },
   ];
 
-  getResult(scores);
+//   getResult(scores);
 }
 
-getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
+try {
+    getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
+} catch (e) {
+    console.log(e)
+}

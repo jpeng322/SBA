@@ -106,7 +106,6 @@ function roundToHundredths(num) {
 
 function getResult(scoresArray) {
   let results = [];
-  console.log(scoresArray);
   for (let item of scoresArray) {
     if (item === undefined) continue;
     const existingItemIndex = results.findIndex(
@@ -117,9 +116,10 @@ function getResult(scoresArray) {
     } else {
       results.push(item);
     }
-  }
+    }
+    
+    return results
 
-  console.log(results, "Asdsad");
 }
 
 function isLate(sub_date, due_date) {
@@ -137,16 +137,14 @@ function isWithinAMonth(sub_date, due_date) {
   const differenceDays = differenceMillis / (24 * 60 * 60 * 1000);
 
   if (differenceDays <= 30) {
-    console.log("The date is within a month.");
+    // console.log("The date is within a month.");
     return true;
   } else {
-    console.log("The date is not within a month.");
+    // console.log("The date is not within a month.");
     return false;
   }
 }
 
-console.log(isLate("2023-03-24", "2023-02-02"));
-isWithinAMonth("2023-01-24", "2023-02-02");
 
 function getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions) {
   if (CourseInfo.id === AssignmentGroup.course_id) {
@@ -162,7 +160,6 @@ function getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions) {
       )
         return;
       const assignment_id = learner.assignment_id;
-      console.log(typeof learner.learner_id === "number");
       if (
         typeof learner.learner_id === "number" &&
         typeof relatedAssignment.points_possible === "number" &&
@@ -180,7 +177,6 @@ function getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions) {
           )
             ? learner.submission.score * 0.9
             : learner.submission.score;
-          console.log(submission_score);
           person[assignment_id] = roundToHundredths(
             submission_score / relatedAssignment.points_possible
           );
@@ -189,9 +185,8 @@ function getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions) {
       } else {
           throw new Error("Learner id, points possible, or submission score is not a number.")
         }
-      // }
     });
-    getResult(scores);
+    return getResult(scores);
   } else {
     throw new Error("Assignment group does not match course info!");
   }
@@ -211,11 +206,11 @@ function getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions) {
     },
   ];
 
-  //   getResult(scores);
 }
 
 try {
-  getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
+    getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
+    console.log(getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions))
 } catch (e) {
   console.log(e);
 }

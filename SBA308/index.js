@@ -87,11 +87,15 @@ function getTotalAverage(learnerId) {
     }
   });
 
-  AssignmentGroup.assignments.forEach((assignment) => {
-    if (assignmentIdsOfLearner.includes(assignment.id)) {
-      totalMaxScore += assignment.points_possible;
+  let counter = 0;
+  const assignments = AssignmentGroup.assignments;
+  while (counter < assignments.length) {
+    if (assignmentIdsOfLearner.includes(assignments[counter].id)) {
+      totalMaxScore += assignments[counter].points_possible;
     }
-  });
+    counter++;
+  }
+
   const average = totalScore / totalMaxScore;
   return roundToHundredths(average);
 }
@@ -116,7 +120,7 @@ function getResult(scoresArray) {
     }
   }
 
-  console.log(results);
+  console.log(results, "Asdsad");
 }
 
 function isLate(sub_date, due_date) {
@@ -179,7 +183,7 @@ function getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions) {
           learner.submission.submitted_at,
           relatedAssignment.due_at
         )
-          ? learner.submission.score * .9
+          ? learner.submission.score * 0.9
           : learner.submission.score;
         console.log(submission_score);
         person[assignment_id] = roundToHundredths(

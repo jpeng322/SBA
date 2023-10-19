@@ -113,7 +113,6 @@ function getResult(scoresArray) {
       (result) => result.learner_id === item.learner_id
     );
     if (existingItemIndex !== -1) {
-      //   console.log({ ...results[existingItemIndex], ...item });
       results[existingItemIndex] = { ...results[existingItemIndex], ...item };
     } else {
       results.push(item);
@@ -124,11 +123,6 @@ function getResult(scoresArray) {
 }
 
 function isLate(sub_date, due_date) {
-  //   if (sub_date > due_date) {
-  //     console.log("is due");
-  //   } else {
-  //     return false
-  //     }
   const subDate = new Date(sub_date);
   const dueDate = new Date(due_date);
   return subDate > dueDate;
@@ -154,16 +148,12 @@ function isWithinAMonth(sub_date, due_date) {
 console.log(isLate("2023-03-24", "2023-02-02"));
 isWithinAMonth("2023-01-24", "2023-02-02");
 
-// isDue(new Date("2023-01-25"), new Date("3156-11-15"));
-// console.log(new Date("2023-01-25") < new Date("3156-11-15"));
-
 function getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions) {
   if (CourseInfo.id === AssignmentGroup.course_id) {
     const scores = LearnerSubmissions.map((learner) => {
       const relatedAssignment = AssignmentGroup.assignments.find(
         (assignment) => assignment.id === learner.assignment_id
       );
-      // console.log(isDue(learner.submission.submitted_at, relatedAssignment.due_at), learner.submission.submitted_at, relatedAssignment.due_at );
       if (
         !isWithinAMonth(
           learner.submission.submitted_at,
@@ -172,25 +162,33 @@ function getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions) {
       )
         return;
       const assignment_id = learner.assignment_id;
-
-      let person = {};
-      person["learner_id"] = learner.learner_id;
-      person["avg"] = getTotalAverage(learner.learner_id);
-      if (relatedAssignment.points_possible < 1) {
-        throw new Error("Points possible cannot be 0 or less.");
+      console.log(typeof learner.learner_id === "number");
+      if (
+        typeof learner.learner_id === "number" &&
+        typeof relatedAssignment.points_possible === "number" &&
+        typeof learner.submission.score === "number"
+      ) {
+        let person = {};
+        person["learner_id"] = learner.learner_id;
+        person["avg"] = getTotalAverage(learner.learner_id);
+        if (relatedAssignment.points_possible < 1) {
+          throw new Error("Points possible cannot be 0 or less.");
+        } else {
+          const submission_score = isLate(
+            learner.submission.submitted_at,
+            relatedAssignment.due_at
+          )
+            ? learner.submission.score * 0.9
+            : learner.submission.score;
+          console.log(submission_score);
+          person[assignment_id] = roundToHundredths(
+            submission_score / relatedAssignment.points_possible
+          );
+        }
+        return person;
       } else {
-        const submission_score = isLate(
-          learner.submission.submitted_at,
-          relatedAssignment.due_at
-        )
-          ? learner.submission.score * 0.9
-          : learner.submission.score;
-        console.log(submission_score);
-        person[assignment_id] = roundToHundredths(
-          submission_score / relatedAssignment.points_possible
-        );
-      }
-      return person;
+          throw new Error("Learner id, points possible, or submission score is not a number.")
+        }
       // }
     });
     getResult(scores);

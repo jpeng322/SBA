@@ -76,6 +76,10 @@ const LearnerSubmissions = [
   },
 ];
 
+function roundToHundredths(num) {
+  return Math.round(num * 100) / 100;
+}
+
 function getTotalAverage(learnerId) {
   let totalScore = 0;
   let totalMaxScore = 0;
@@ -98,28 +102,6 @@ function getTotalAverage(learnerId) {
 
   const average = totalScore / totalMaxScore;
   return roundToHundredths(average);
-}
-
-function roundToHundredths(num) {
-  return Math.round(num * 100) / 100;
-}
-
-function getResult(scoresArray) {
-  let results = [];
-  for (let item of scoresArray) {
-    if (item === undefined) continue;
-    const existingItemIndex = results.findIndex(
-      (result) => result.learner_id === item.learner_id
-    );
-    if (existingItemIndex !== -1) {
-      results[existingItemIndex] = { ...results[existingItemIndex], ...item };
-    } else {
-      results.push(item);
-    }
-    }
-    
-    return results
-
 }
 
 function isLate(sub_date, due_date) {
@@ -145,6 +127,22 @@ function isWithinAMonth(sub_date, due_date) {
   }
 }
 
+function getResult(scoresArray) {
+  let results = [];
+  for (let item of scoresArray) {
+    if (item === undefined) continue;
+    const existingItemIndex = results.findIndex(
+      (result) => result.learner_id === item.learner_id
+    );
+    if (existingItemIndex !== -1) {
+      results[existingItemIndex] = { ...results[existingItemIndex], ...item };
+    } else {
+      results.push(item);
+    }
+  }
+
+  return results;
+}
 
 function getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions) {
   if (CourseInfo.id === AssignmentGroup.course_id) {
@@ -183,34 +181,36 @@ function getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions) {
         }
         return person;
       } else {
-          throw new Error("Learner id, points possible, or submission score is not a number.")
-        }
+        throw new Error(
+          "Learner id, points possible, or submission score is not a number."
+        );
+      }
     });
     return getResult(scores);
   } else {
     throw new Error("Assignment group does not match course info!");
   }
 
-  const result = [
-    {
-      id: 125,
-      avg: 0.985, // (47 + 150) / (50 + 150)
-      1: 0.94, // 47 / 50
-      2: 1.0, // 150 / 150
-    },
-    {
-      id: 132,
-      avg: 0.82, // (39 + 125) / (50 + 150)
-      1: 0.78, // 39 / 50
-      2: 0.833, // late: (140 - 15) / 150
-    },
-  ];
-
+  //Desired Results
+  // const result = [
+  //   {
+  //     id: 125,
+  //     avg: 0.985, // (47 + 150) / (50 + 150)
+  //     1: 0.94, // 47 / 50
+  //     2: 1.0, // 150 / 150
+  //   },
+  //   {
+  //     id: 132,
+  //     avg: 0.82, // (39 + 125) / (50 + 150)
+  //     1: 0.78, // 39 / 50
+  //     2: 0.833, // late: (140 - 15) / 150
+  //   },
+  // ];
 }
 
 try {
-    getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
-    console.log(getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions))
+  getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
+  console.log(getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions));
 } catch (e) {
   console.log(e);
 }

@@ -39,9 +39,44 @@
 
 // Yell at the Ninja Turtles
 
-const turtles = ["Donatello", "Leonardo", "Raphael", "Michaelangelo"]
+// const turtles = ["Donatello", "Leonardo", "Raphael", "Michaelangelo"]
 
-for (let name of turtles) {
-    console.log(name.toUpperCase())
-}
+// for (let name of turtles) {
+//     console.log(name.toUpperCase())
+// }
 
+const favMovies = ['Jaws', 'The Fellowship of the Ring', 'Howl\'s Moving Castle', 'Django Unchained', 'Cloud Atlas', 'The Usual Suspects', 'Toy Story', 'Conan the Barbarian', 'Titanic', 'Harry Potter', 'Fried Green Tomatoes', 'Volver', 'Oculus', 'Seven', 'Black Panther', 'Harry Potter', 'Imitation of Life', 'Snatch', 'Fast and Furious'];
+
+// const indexOfTitanic = favMovies.findIndex(movie => movie === "Titanic")
+// console.log(indexOfTitanic)
+
+// 1.
+// console.log(favMovies.sort())
+
+// 3.
+// console.log(favMovies.pop())
+
+// 4.
+// console.log(favMovies.push("Guardians of the Galaxy"))
+
+// 5.
+// console.log(favMovies.reverse())
+
+//6
+// console.log(favMovies.shift())
+
+//7 returns new length
+// console.log(favMovies.unshift())
+
+//8
+// console.log(favMovies.splice(3, 1, "Avatar"))
+// console.log(favMovies)
+
+//10 -14
+// console.log(favMovies.slice(Math.floor(favMovies.length / 2)))
+
+// const slicedHalf = favMovies.slice(Math.floor(favMovies.length / 2))
+// console.log(slicedHalf)
+
+// const indexOfFF = favMovies.findIndex(movie => movie === "Fast and Furious")
+// console.log(indexOfFF)

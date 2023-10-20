@@ -100,14 +100,26 @@ const favMovies = [
 // const indexOfFF = favMovies.findIndex(movie => movie === "Fast and Furious")
 // console.log(indexOfFF)
 
-const whereIsWaldo = [
-  ["Timmy", "Frank"],
-  "Eggbert",
-  ["Lucinda", "Jacc", "Neff", "Snoop"],
-  ["Petunia", ["Baked Goods", "Waldo"]],
-];
+// const whereIsWaldo = [
+//   ["Timmy", "Frank"],
+//   "Eggbert",
+//   ["Lucinda", "Jacc", "Neff", "Snoop"],
+//   ["Petunia", ["Baked Goods", "Waldo"]],
+// ];
 
+// console.log(whereIsWaldo.splice(1, 1))
+// console.log(whereIsWaldo[1].splice(2, 1, "No One"))
+// console.log(whereIsWaldo[2][1][1])
 
-console.log(whereIsWaldo.splice(1, 1))
-console.log(whereIsWaldo[1].splice(2, 1, "No One"))
-console.log(whereIsWaldo[2][1][1])
+for (let i = 0; i < 20; i++) {
+  const arrOfComments = [
+    "...human... why you taking pictures of me...?",
+    "...the catnip made me do it...",
+    "...why does the red dot always get away...?",
+  ];
+  const randomNumber = Math.floor(Math.random() * arrOfComments.length);
+  if (i % 2 === 0) {
+    console.log(arrOfComments[randomNumber]);
+  }
+  console.log("Love me, pet me! HSSSSSS!");
+}

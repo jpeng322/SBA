@@ -10,7 +10,6 @@
 //   }
 // }
 
-
 //FizzBuzz
 // for (let i = 1; i <= 100; i++) {
 //     if (i % 3 === 0 && i % 5 === 0) {
@@ -45,7 +44,27 @@
 //     console.log(name.toUpperCase())
 // }
 
-const favMovies = ['Jaws', 'The Fellowship of the Ring', 'Howl\'s Moving Castle', 'Django Unchained', 'Cloud Atlas', 'The Usual Suspects', 'Toy Story', 'Conan the Barbarian', 'Titanic', 'Harry Potter', 'Fried Green Tomatoes', 'Volver', 'Oculus', 'Seven', 'Black Panther', 'Harry Potter', 'Imitation of Life', 'Snatch', 'Fast and Furious'];
+const favMovies = [
+  "Jaws",
+  "The Fellowship of the Ring",
+  "Howl's Moving Castle",
+  "Django Unchained",
+  "Cloud Atlas",
+  "The Usual Suspects",
+  "Toy Story",
+  "Conan the Barbarian",
+  "Titanic",
+  "Harry Potter",
+  "Fried Green Tomatoes",
+  "Volver",
+  "Oculus",
+  "Seven",
+  "Black Panther",
+  "Harry Potter",
+  "Imitation of Life",
+  "Snatch",
+  "Fast and Furious",
+];
 
 // const indexOfTitanic = favMovies.findIndex(movie => movie === "Titanic")
 // console.log(indexOfTitanic)
@@ -80,3 +99,15 @@ const favMovies = ['Jaws', 'The Fellowship of the Ring', 'Howl\'s Moving Castle'
 
 // const indexOfFF = favMovies.findIndex(movie => movie === "Fast and Furious")
 // console.log(indexOfFF)
+
+const whereIsWaldo = [
+  ["Timmy", "Frank"],
+  "Eggbert",
+  ["Lucinda", "Jacc", "Neff", "Snoop"],
+  ["Petunia", ["Baked Goods", "Waldo"]],
+];
+
+
+console.log(whereIsWaldo.splice(1, 1))
+console.log(whereIsWaldo[1].splice(2, 1, "No One"))
+console.log(whereIsWaldo[2][1][1])

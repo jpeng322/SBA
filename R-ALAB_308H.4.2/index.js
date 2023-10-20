@@ -100,6 +100,8 @@ const favMovies = [
 // const indexOfFF = favMovies.findIndex(movie => movie === "Fast and Furious")
 // console.log(indexOfFF)
 
+
+//Where is Waldo
 // const whereIsWaldo = [
 //   ["Timmy", "Frank"],
 //   "Eggbert",
@@ -111,15 +113,24 @@ const favMovies = [
 // console.log(whereIsWaldo[1].splice(2, 1, "No One"))
 // console.log(whereIsWaldo[2][1][1])
 
-for (let i = 0; i < 20; i++) {
-  const arrOfComments = [
-    "...human... why you taking pictures of me...?",
-    "...the catnip made me do it...",
-    "...why does the red dot always get away...?",
-  ];
-  const randomNumber = Math.floor(Math.random() * arrOfComments.length);
-  if (i % 2 === 0) {
-    console.log(arrOfComments[randomNumber]);
-  }
-  console.log("Love me, pet me! HSSSSSS!");
-}
+
+//Excited Kitten
+// for (let i = 0; i < 20; i++) {
+//   const arrOfComments = [
+//     "...human... why you taking pictures of me...?",
+//     "...the catnip made me do it...",
+//     "...why does the red dot always get away...?",
+//   ];
+//   const randomNumber = Math.floor(Math.random() * arrOfComments.length);
+//   if (i % 2 === 0) {
+//     console.log(arrOfComments[randomNumber]);
+//   }
+//   console.log("Love me, pet me! HSSSSSS!");
+// }
+
+//Find the Median
+const nums = [14, 11, 16, 15, 13, 16, 15, 17, 19, 11, 12, 14, 19, 11, 15, 17, 11, 18, 12, 17, 12, 71, 18, 15, 12]
+
+const sortedNums = nums.sort((a, b) => a - b)
+const middle = Math.floor(sortedNums.length/2)
+console.log(sortedNums[middle])

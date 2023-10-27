@@ -1,3 +1,5 @@
+
+//data from https://github.com/visnkmr/Factset/blob/master/facts.json
 const data = {
   factcount: "2502",
   facts: [

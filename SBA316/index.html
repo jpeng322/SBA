@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SBA 316</title>
+    <link rel="stylesheet" href="style.css">
     <!-- <script type="text/javascript" src="index.js" defer></script> -->
   </head>
   <body>
     <h1>Random Text Generator</h1>
-    <label for="username"></label>
     <form name="myForm" onsubmit="hasUser(event)">
-      <label for="username">Username</label>
+      <label for="username">Name: </label>
       <input
         type="text"
         name="username"
@@ -21,6 +21,9 @@
       <input type="submit" value="Submit" id="submit" />
     </form>
 
+    <template id="name-template">
+      <div class="welcome">Welcome, {{name}}!</div>
+    </template>
     <button id="fact-button">Generate Fact</button>
   </body>
   <script src="data.js"></script>

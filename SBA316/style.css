@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+body {
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+}
+
+form {
+  margin-bottom: 1rem;
+}
+
+form input {
+  padding: 0.5rem;
+}
+
+button {
+  padding: 0.5rem 0.5rem;
+}
+
+.factdiv {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  background-color: #d6d4d048;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  padding-inline: 5%;
+}
+
+p {
+  margin-right: 0.5rem;
+  padding: 0.25rem 1rem;
+  backdrop-filter: blur(5px);
+  border-radius: 0.5rem;
+}
+.buttondiv {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.factdiv button {
+  font-family: "Poppins", sans-serif;
+  border: none;
+  background-color: #d1d1d1;
+  border-radius: 0.25rem;
+  padding: 0.75rem;
+  transition: 0.1s ease-in-out;
+  letter-spacing: 0.5px;
+  font-size: 0.8rem;
+}
+
+button {
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  border: none;
+  background-color: #d1d1d1;
+  border-radius: 0.25rem;
+  padding: 0.75rem;
+  transition: 0.1s ease-in-out;
+  letter-spacing: 0.5px;
+  font-size: 0.8rem;
+}
+
+.factdiv button:last-child:hover {
+  color: rgb(255, 255, 47);
+}
+
+.factdiv button:nth-child(2):hover {
+  color: red;
+}
+
+#fact-button {
+  margin-top: 0.5rem;
+  transition: 0.2s ease-in-out;
+  color: #1414149a;
+  font-size: 1rem;
+}
+
+.welcome {
+  font-size: 1.5rem;
+}
+
+#fact-button:hover {
+  color: black;
+}

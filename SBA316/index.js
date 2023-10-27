@@ -10,17 +10,29 @@ generateButton.disabled = true;
 
 function hasUser(event) {
   event.preventDefault();
-  const username = document.querySelector("input").value;
-  if (username) {
-    generateButton.disabled = false;
-    const submitButton = document.getElementById("submit");
-    submitButton.disabled = true;
+  const name = document.querySelector("input");
+  if (name.value) {
+    const confirmed = confirm(`Is ${name.value} your name?`);
+    if (confirmed) {
+      generateButton.disabled = false;
+      const submitButton = document.getElementById("submit");
+      submitButton.disabled = true;
+      name.disabled = true;
+      window.alert("You can now generate facts!");
+      const template = document.getElementById("name-template");
+      const templateContent = template.content.cloneNode(true);
+      templateContent.querySelector(
+        "div"
+      ).textContent = `Welcome, ${name.value}`;
+      generateButton.parentNode.insertBefore(templateContent, generateButton);
+      //   body.insertBefore(templateContent, body.childNodes[2]);
+    }
   }
 }
 
 function createFactDiv() {
   const factDiv = document.createElement("div");
-
+  factDiv.classList.add("factdiv");
   const fact = document.createElement("p");
   fact.classList.add("fact");
   fact.textContent = generateFact();
@@ -33,14 +45,22 @@ function createFactDiv() {
   highlightButton.textContent = "Highlight";
   highlightButton.addEventListener("click", (e) => highlight(e));
   factDiv.appendChild(fact);
-  factDiv.appendChild(deleteButton);
-  factDiv.appendChild(highlightButton);
+
+  const buttonDiv = document.createElement("div");
+    buttonDiv.classList.add("buttondiv");
+    factDiv.appendChild(deleteButton);
+    factDiv.appendChild(highlightButton);
+//   buttonDiv.appendChild(deleteButton);
+//   buttonDiv.appendChild(highlightButton);
+//   factDiv.appendChild(buttonDiv);
   body.appendChild(factDiv);
 }
 
 function generateFact() {
   const randomNumber = Math.floor(Math.random() * factsList.length);
-  const fact = factsList[randomNumber];
+  const fact =
+    factsList[randomNumber].charAt(0).toUpperCase() +
+    factsList[randomNumber].slice(1);
   return fact;
 }
 

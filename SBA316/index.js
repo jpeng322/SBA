@@ -18,10 +18,10 @@ function createFactDiv() {
 
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "X";
-
-  factDiv.append(fact);
-  factDiv.append(deleteButton);
-  body.append(factDiv);
+  deleteButton.addEventListener("click", (e) => deleteFact(e));
+  factDiv.appendChild(fact);
+  factDiv.appendChild(deleteButton);
+  body.appendChild(factDiv);
 }
 
 function generateFact() {
@@ -29,3 +29,15 @@ function generateFact() {
   const fact = factsList[randomNumber];
   return fact;
 }
+
+function deleteFact(e) {
+  const allFacts = document.querySelectorAll(".fact");
+  const selectedFact = e.target.parentNode.firstChild;
+  for (let fact of allFacts) {
+    if (selectedFact.isEqualNode(fact)) {
+      console.log("this node is equal", fact);
+      body.removeChild(fact.parentNode);
+    }
+  }
+}
+

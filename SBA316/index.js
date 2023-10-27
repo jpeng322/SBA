@@ -6,15 +6,26 @@ body.append(textBox);
 
 textBox.textContent = "sadasd";
 
-const button = document.getElementById("fact-button");
-button.addEventListener("click", generateFact);
+const generateButton = document.getElementById("fact-button");
+generateButton.addEventListener("click", createFactDiv);
 
-function generateFact() {
-  console.log("clicked");
-  const randomNumber = Math.floor(Math.random() * factsList.length);
+function createFactDiv() {
+  const factDiv = document.createElement("div");
+
   const fact = document.createElement("p");
   fact.classList.add("fact");
-  console.log(factsList[randomNumber]);
-  fact.textContent = factsList[randomNumber];
-  body.append(fact);
+  fact.textContent = generateFact();
+
+  const deleteButton = document.createElement("button");
+  deleteButton.textContent = "X";
+
+  factDiv.append(fact);
+  factDiv.append(deleteButton);
+  body.append(factDiv);
+}
+
+function generateFact() {
+  const randomNumber = Math.floor(Math.random() * factsList.length);
+  const fact = factsList[randomNumber];
+  return fact;
 }

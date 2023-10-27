@@ -8,6 +8,19 @@
   </head>
   <body>
     <h1>Random Text Generator</h1>
+    <label for="username"></label>
+    <form name="myForm" onsubmit="hasUser(event)">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        name="username"
+        minlength="1"
+        pattern="^[^\d\s\t]*$"
+        required
+      />
+      <input type="submit" value="Submit" id="submit" />
+    </form>
+
     <button id="fact-button">Generate Fact</button>
   </body>
   <script src="data.js"></script>

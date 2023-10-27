@@ -6,6 +6,17 @@ body.append(textBox);
 
 const generateButton = document.getElementById("fact-button");
 generateButton.addEventListener("click", createFactDiv);
+generateButton.disabled = true;
+
+function hasUser(event) {
+  event.preventDefault();
+  const username = document.querySelector("input").value;
+  if (username) {
+    generateButton.disabled = false;
+    const submitButton = document.getElementById("submit");
+    submitButton.disabled = true;
+  }
+}
 
 function createFactDiv() {
   const factDiv = document.createElement("div");
@@ -17,6 +28,7 @@ function createFactDiv() {
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "Delete";
   deleteButton.addEventListener("click", (e) => deleteFact(e));
+
   const highlightButton = document.createElement("button");
   highlightButton.textContent = "Highlight";
   highlightButton.addEventListener("click", (e) => highlight(e));
@@ -37,7 +49,6 @@ function deleteFact(e) {
   const selectedFact = e.target.parentNode.firstChild;
   for (let fact of allFacts) {
     if (selectedFact.isEqualNode(fact)) {
-      console.log("deleted");
       body.removeChild(fact.parentNode);
     }
   }
@@ -46,7 +57,6 @@ function deleteFact(e) {
 function highlight(e) {
   const allFacts = document.querySelectorAll(".fact");
   const selectedFact = e.target.parentNode.firstChild;
-  console.log(e.target);
   for (let fact of allFacts) {
     if (selectedFact.isEqualNode(fact)) {
       if (fact.style.backgroundColor === "yellow") {
